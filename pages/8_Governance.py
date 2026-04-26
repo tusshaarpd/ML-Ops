@@ -13,8 +13,61 @@ from utils.model_registry import get_all_models, get_audit_log, get_production_m
 st.set_page_config(page_title="Governance", page_icon="🛡️", layout="wide")
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
+with st.sidebar:
+    st.markdown(
+        """
+        <div style='text-align:center; padding:8px 0 12px;'>
+            <div style='font-size:1.8rem;'>🛡️</div>
+            <div style='color:#93c5fd; font-weight:700; font-size:0.95rem;'>Governance</div>
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.8rem; color:#cbd5e1; line-height:1.8;'>
+        <b style='color:#bfdbfe;'>📌 Five Tabs</b><br>
+        ✅ <b style='color:#e2e8f0;'>Approvals</b> — Multi-level sign-off workflow<br>
+        ⚖️ <b style='color:#e2e8f0;'>Bias &amp; Fairness</b> — Demographic parity, equal opportunity<br>
+        📜 <b style='color:#e2e8f0;'>Audit Trail</b> — Complete event log<br>
+        📋 <b style='color:#e2e8f0;'>Responsible AI</b> — Six core principles<br>
+        📊 <b style='color:#e2e8f0;'>Governance Report</b> — Downloadable compliance report
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.78rem; color:#94a3b8; line-height:1.6;'>
+        <b style='color:#bfdbfe;'>⚖️ Bias Thresholds</b><br>
+        Disparate Impact &gt; <b style='color:#e2e8f0;'>0.80</b> = Pass<br>
+        True Positive Rate &gt; <b style='color:#e2e8f0;'>80%</b> per group = Pass<br><br>
+        <b style='color:#bfdbfe;'>🔐 Approval Levels</b><br>
+        Data Scientist → ML Engineer<br>
+        → Risk Manager → CTO
+        </div>
+        """, unsafe_allow_html=True,
+    )
+
 st.title("🛡️ Governance & Compliance Center")
 st.caption("Model approvals, bias assessments, responsible AI reporting, and audit trails.")
+st.markdown(
+    """
+    <div class='explain-box'>
+    <b>📖 About this page:</b> Enterprise ML deployments require rigorous governance.
+    This page covers the full compliance lifecycle:<br>
+    • <b>Approval Workflow</b> — Models cannot reach Production without sign-off
+      from Data Scientist → ML Engineer → Risk Manager → CTO.<br>
+    • <b>Bias & Fairness</b> — Three fairness metrics are checked:
+      <b>Demographic Parity</b> (equal prediction rates), <b>Equal Opportunity</b>
+      (equal true positive rates), and <b>Calibration</b> (predicted probabilities match outcomes).<br>
+    • <b>Responsible AI</b> — Six principles: Transparency, Fairness, Privacy,
+      Accountability, Safety, Sustainability.<br>
+    • <b>Governance Report</b> — A full compliance report downloadable as a text file.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 st.divider()
 
 # ── Load Data ─────────────────────────────────────────────────────────────────

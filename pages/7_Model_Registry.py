@@ -17,8 +17,57 @@ from utils.visualizations import metric_comparison_bar, PALETTE
 st.set_page_config(page_title="Model Registry", page_icon="🗂️", layout="wide")
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
+with st.sidebar:
+    st.markdown(
+        """
+        <div style='text-align:center; padding:8px 0 12px;'>
+            <div style='font-size:1.8rem;'>🗂️</div>
+            <div style='color:#93c5fd; font-weight:700; font-size:0.95rem;'>Model Registry</div>
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.8rem; color:#cbd5e1; line-height:1.8;'>
+        <b style='color:#bfdbfe;'>📌 Five Tabs</b><br>
+        📋 <b style='color:#e2e8f0;'>All Models</b> — Filter &amp; browse full registry<br>
+        🔬 <b style='color:#e2e8f0;'>Version Comparison</b> — Compare metrics across versions<br>
+        ⚙️ <b style='color:#e2e8f0;'>Actions</b> — Promote, archive, rollback<br>
+        📜 <b style='color:#e2e8f0;'>Audit Log</b> — Full event history<br>
+        📊 <b style='color:#e2e8f0;'>Analytics</b> — Registry statistics
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.78rem; color:#94a3b8; line-height:1.6;'>
+        <b style='color:#bfdbfe;'>🔄 Stage Lifecycle</b><br>
+        Development → Staging → Production → Archived<br><br>
+        <b style='color:#bfdbfe;'>💾 Storage</b><br>
+        SQLite database at <code style='background:rgba(255,255,255,0.1);
+        color:#93c5fd; padding:1px 5px; border-radius:3px;'>db/mlops_registry.db</code>
+        </div>
+        """, unsafe_allow_html=True,
+    )
+
 st.title("🗂️ Model Registry")
 st.caption("Version control, stage management, and audit trail for all ML models.")
+st.markdown(
+    """
+    <div class='explain-box'>
+    <b>📖 About this page:</b> The Model Registry is the single source of truth for all
+    trained models. Every model is stored with its version number, performance metrics,
+    training parameters, owner, and lifecycle stage.
+    Models progress through <b>Development → Staging → Production → Archived</b>.
+    The registry is backed by a <b>SQLite database</b> that persists across sessions.
+    Use the <b>Actions</b> tab to promote or roll back models, and the <b>Audit Log</b>
+    to see a complete history of every change made.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 st.divider()
 
 

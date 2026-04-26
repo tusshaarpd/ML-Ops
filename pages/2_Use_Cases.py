@@ -18,8 +18,62 @@ from utils.visualizations import (
 st.set_page_config(page_title="Use Cases", page_icon="🎯", layout="wide")
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
+with st.sidebar:
+    st.markdown(
+        """
+        <div style='text-align:center; padding:8px 0 12px;'>
+            <div style='font-size:1.8rem;'>🎯</div>
+            <div style='color:#93c5fd; font-weight:700; font-size:0.95rem;'>Business Use Cases</div>
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.8rem; color:#cbd5e1; line-height:1.8;'>
+        <b style='color:#bfdbfe;'>📌 Six Use Cases</b><br>
+        💬 <b style='color:#e2e8f0;'>Sentiment</b> — Review classification<br>
+        📧 <b style='color:#e2e8f0;'>Spam</b> — Message filtering<br>
+        📉 <b style='color:#e2e8f0;'>Churn</b> — Customer retention<br>
+        🔍 <b style='color:#e2e8f0;'>Fraud</b> — Transaction risk<br>
+        📈 <b style='color:#e2e8f0;'>Sales</b> — Time series forecast<br>
+        👥 <b style='color:#e2e8f0;'>HR Attrition</b> — Employee turnover
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.78rem; color:#94a3b8; line-height:1.6;'>
+        <b style='color:#bfdbfe;'>📊 Each tab shows</b><br>
+        • Summary statistics<br>
+        • Class distribution charts<br>
+        • Data quality report<br>
+        • Segment analysis<br>
+        • Sample records<br><br>
+        <b style='color:#bfdbfe;'>⚠️ Imperfections injected</b><br>
+        ~2% missing values<br>
+        ~2% outliers<br>
+        ~1% duplicate rows
+        </div>
+        """, unsafe_allow_html=True,
+    )
+
 st.title("🎯 Business Use Cases")
 st.caption("Explore the six ML use cases: data distributions, quality metrics, and sample insights.")
+st.markdown(
+    """
+    <div class='explain-box'>
+    <b>📖 About this page:</b> All datasets are <b>synthetically generated</b> with a
+    fixed random seed (42) for full reproducibility. Each dataset intentionally includes
+    real-world imperfections — <b>missing values</b> (~2%), <b>outliers</b> (~2%),
+    and <b>duplicate rows</b> (~1%) — to simulate what you'd encounter in production.
+    Click each tab to explore distributions, class balance, segment-level analysis,
+    and sample records. You can download any dataset as a CSV for offline exploration.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 st.divider()
 
 # ── Cache all datasets ────────────────────────────────────────────────────────

@@ -23,21 +23,68 @@ st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 st.title("📡 Monitoring Dashboard")
 st.caption("Real-time performance tracking, drift detection, and data quality monitoring.")
+st.markdown(
+    """
+    <div class='explain-box'>
+    <b>📖 About this page:</b> Production models degrade over time as real-world data
+    changes. This dashboard tracks three types of monitoring:<br>
+    • <b>Performance Monitoring</b> — 30-day accuracy/F1 trend; alerts if the model
+      drops below your threshold.<br>
+    • <b>Drift Detection</b> — Compares training data distribution vs a simulated new
+      batch using <b>PSI</b> (Population Stability Index) and the <b>KS test</b>.
+      PSI &lt; 0.10 = stable, 0.10–0.20 = moderate, &gt; 0.20 = retrain.<br>
+    • <b>Data Quality</b> — Tracks missing %, duplicate %, and outlier % over time.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 st.divider()
 
 # ── Sidebar Filters ────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("### ⚙️ Monitoring Config")
+    st.markdown(
+        """
+        <div style='text-align:center; padding:8px 0 12px;'>
+            <div style='font-size:1.8rem;'>📡</div>
+            <div style='color:#93c5fd; font-weight:700; font-size:0.95rem;'>Monitoring</div>
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.8rem; color:#cbd5e1; line-height:1.7;'>
+        <b style='color:#bfdbfe;'>⚙️ Config</b><br>
+        Choose a use case and set alert thresholds below. The dashboard
+        updates automatically based on your selections.
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.78rem; color:#94a3b8; line-height:1.6;'>
+        <b style='color:#bfdbfe;'>📊 PSI Reference</b><br>
+        <span style='color:#059669;'>●</span> &lt; 0.10 — Stable<br>
+        <span style='color:#d97706;'>●</span> 0.10–0.20 — Moderate drift<br>
+        <span style='color:#dc2626;'>●</span> &gt; 0.20 — Significant — retrain
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown("<div style='color:#bfdbfe; font-size:0.82rem; font-weight:700;'>🎛️ FILTERS</div>", unsafe_allow_html=True)
     mon_uc = st.selectbox(
         "Use Case / Model",
         list(USE_CASES.keys()),
         format_func=lambda k: f"{USE_CASES[k]['icon']} {USE_CASES[k]['name']}",
     )
-    perf_days = st.slider("Performance History (days)", 7, 90, 30)
+    perf_days = st.slider("History Window (days)", 7, 90, 30)
     st.divider()
-    st.markdown("**Alert Thresholds**")
-    acc_threshold = st.slider("Min Accuracy / R²", 0.5, 0.99, 0.80)
-    psi_threshold = st.slider("Max PSI Drift", 0.05, 0.50, 0.20)
+    st.markdown("<div style='color:#bfdbfe; font-size:0.82rem; font-weight:700;'>🚨 ALERT THRESHOLDS</div>", unsafe_allow_html=True)
+    acc_threshold = st.slider("Min Accuracy / R²", 0.5, 0.99, 0.80,
+                               help="Alert fires when accuracy drops below this value")
+    psi_threshold = st.slider("Max PSI Drift", 0.05, 0.50, 0.20,
+                               help="Alert fires when any feature PSI exceeds this value")
     st.divider()
     auto_refresh = st.checkbox("Auto-refresh (30s)", value=False)
 

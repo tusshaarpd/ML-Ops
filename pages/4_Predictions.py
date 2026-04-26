@@ -19,8 +19,59 @@ from utils.visualizations import (
 st.set_page_config(page_title="Predictions", page_icon="🔮", layout="wide")
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
+with st.sidebar:
+    st.markdown(
+        """
+        <div style='text-align:center; padding:8px 0 12px;'>
+            <div style='font-size:1.8rem;'>🔮</div>
+            <div style='color:#93c5fd; font-weight:700; font-size:0.95rem;'>Predictions</div>
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.8rem; color:#cbd5e1; line-height:1.8;'>
+        <b style='color:#bfdbfe;'>📌 Four Tabs</b><br>
+        🎯 <b style='color:#e2e8f0;'>Single Prediction</b><br>
+        &nbsp;&nbsp;&nbsp;Enter one record, see probability scores<br>
+        📦 <b style='color:#e2e8f0;'>Batch Inference</b><br>
+        &nbsp;&nbsp;&nbsp;Score 10–500 records at once<br>
+        🌐 <b style='color:#e2e8f0;'>API Simulation</b><br>
+        &nbsp;&nbsp;&nbsp;Mock REST endpoint with latency logs<br>
+        💡 <b style='color:#e2e8f0;'>Explainability</b><br>
+        &nbsp;&nbsp;&nbsp;Feature importance &amp; confidence charts
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.78rem; color:#94a3b8; line-height:1.6;'>
+        <b style='color:#bfdbfe;'>💡 Notes</b><br>
+        • Models are <b style='color:#e2e8f0;'>trained fresh</b> on first load and cached<br>
+        • Latency is <b style='color:#e2e8f0;'>simulated</b> (12–180 ms range)<br>
+        • Confidence = max class probability
+        </div>
+        """, unsafe_allow_html=True,
+    )
+
 st.title("🔮 Live Predictions & Deployment Simulation")
 st.caption("Single predictions, batch scoring, API simulation, and explainability.")
+st.markdown(
+    """
+    <div class='explain-box'>
+    <b>📖 About this page:</b> This page simulates a production model serving layer.
+    It trains one representative model per use case and exposes four deployment modes:
+    <b>single-record inference</b> (with probability breakdown and colour-coded result),
+    <b>batch scoring</b> (score hundreds of records and download results),
+    <b>REST API simulation</b> (mock JSON requests with per-request latency tracking),
+    and <b>explainability</b> (global feature importance and local token-level attributions
+    for text models). Models are cached so subsequent predictions are instant.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 st.divider()
 
 # ── Model Cache ────────────────────────────────────────────────────────────────

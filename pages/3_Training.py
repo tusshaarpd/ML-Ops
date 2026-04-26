@@ -23,7 +23,25 @@ st.set_page_config(page_title="Model Training", page_icon="🤖", layout="wide")
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 st.title("🤖 Model Training Engine")
-st.caption("Configure, train, cross-validate, and register ML models across all use cases.")
+st.caption("Configure, train, cross-validate, and register ML models across all six use cases.")
+
+st.markdown(
+    """
+    <div class='explain-box'>
+    <b>📖 How to use this page:</b><br>
+    1. <b>Select a use case</b> and <b>algorithm</b> in the left sidebar.<br>
+    2. Adjust the <b>test split</b>, <b>cross-validation folds</b>, and any
+       <b>hyperparameters</b> available for the chosen algorithm.<br>
+    3. Click <b>🚀 Train Model</b> — the pipeline runs preprocessing, cross-validation,
+       and final evaluation automatically.<br>
+    4. Review the <b>confusion matrix</b>, <b>ROC curve</b>, <b>feature importance</b>,
+       and <b>CV fold scores</b> in the result tabs below.<br>
+    5. Optionally <b>register</b> the trained model to the Model Registry
+       with a version tag and owner name.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 st.divider()
 
 # ── Session State Init ────────────────────────────────────────────────────────
@@ -35,7 +53,24 @@ if "trained_models" not in st.session_state:
 
 # ── Sidebar Configuration ─────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("### ⚙️ Training Configuration")
+    st.markdown(
+        """
+        <div style='text-align:center; padding:8px 0 12px;'>
+            <div style='font-size:1.8rem;'>🤖</div>
+            <div style='color:#93c5fd; font-weight:700; font-size:0.95rem;'>Training Engine</div>
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.8rem; color:#cbd5e1; line-height:1.7;'>
+        <b style='color:#bfdbfe;'>⚙️ Training Config</b><br>
+        Configure the use case, algorithm, split ratio, cross-validation folds,
+        and hyperparameters below. Click <b style='color:#e2e8f0;'>🚀 Train Model</b> to run.
+        </div>
+        """, unsafe_allow_html=True,
+    )
     st.divider()
 
     use_case = st.selectbox(

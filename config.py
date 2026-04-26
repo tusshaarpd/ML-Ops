@@ -151,56 +151,158 @@ BIAS_METRICS    = ["Demographic Parity", "Equal Opportunity", "Calibration"]
 # ── CSS Theme (injected into Streamlit pages) ─────────────────────────────────
 CUSTOM_CSS = """
 <style>
-    /* Sidebar */
-    [data-testid="stSidebar"] { background: linear-gradient(160deg,#0f172a 0%,#1e3a5f 100%); }
-    [data-testid="stSidebar"] .css-1d391kg { color: #e2e8f0; }
+    /* ── Sidebar background ── */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(170deg, #0f172a 0%, #1e3a5f 60%, #1e40af 100%) !important;
+    }
 
-    /* Metric cards */
+    /* ── All text inside the sidebar ── */
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] div,
+    [data-testid="stSidebar"] small,
+    [data-testid="stSidebar"] li,
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] h4,
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] {
+        color: #e2e8f0 !important;
+    }
+
+    /* ── Sidebar widget labels (selectbox, slider, etc.) ── */
+    [data-testid="stSidebar"] .stSelectbox label,
+    [data-testid="stSidebar"] .stSlider label,
+    [data-testid="stSidebar"] .stTextInput label,
+    [data-testid="stSidebar"] .stTextArea label,
+    [data-testid="stSidebar"] .stCheckbox label,
+    [data-testid="stSidebar"] .stRadio label,
+    [data-testid="stSidebar"] .stMultiSelect label,
+    [data-testid="stSidebar"] .stNumberInput label {
+        color: #cbd5e1 !important;
+        font-weight: 600 !important;
+        font-size: 0.88rem !important;
+    }
+
+    /* ── Sidebar selectbox / input backgrounds ── */
+    [data-testid="stSidebar"] .stSelectbox > div > div,
+    [data-testid="stSidebar"] .stMultiSelect > div > div {
+        background-color: rgba(255,255,255,0.12) !important;
+        border: 1px solid rgba(255,255,255,0.25) !important;
+        border-radius: 8px !important;
+        color: #f1f5f9 !important;
+    }
+
+    /* ── Sidebar slider track ── */
+    [data-testid="stSidebar"] [data-testid="stSlider"] > div > div > div {
+        background: rgba(255,255,255,0.2) !important;
+    }
+
+    /* ── Sidebar divider ── */
+    [data-testid="stSidebar"] hr {
+        border-color: rgba(255,255,255,0.2) !important;
+    }
+
+    /* ── Sidebar nav page links ── */
+    [data-testid="stSidebarNav"] a,
+    [data-testid="stSidebarNav"] span {
+        color: #bfdbfe !important;
+        font-weight: 500 !important;
+    }
+    [data-testid="stSidebarNav"] a:hover span {
+        color: #ffffff !important;
+    }
+    [data-testid="stSidebarNav"] [aria-selected="true"] span {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+    }
+
+    /* ── Sidebar button ── */
+    [data-testid="stSidebar"] .stButton > button {
+        background: rgba(255,255,255,0.15) !important;
+        color: #f1f5f9 !important;
+        border: 1px solid rgba(255,255,255,0.3) !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+    [data-testid="stSidebar"] .stButton > button:hover {
+        background: rgba(255,255,255,0.25) !important;
+    }
+
+    /* ── Main page metric cards ── */
     div[data-testid="metric-container"] {
-        background: linear-gradient(135deg,#1e40af22,#0891b222);
-        border: 1px solid #1e40af55;
+        background: linear-gradient(135deg,#dbeafe,#e0f2fe);
+        border: 1px solid #93c5fd;
         border-radius: 12px;
-        padding: 12px 16px;
+        padding: 14px 18px;
+    }
+    div[data-testid="metric-container"] label {
+        color: #1e40af !important;
+        font-weight: 600 !important;
+        font-size: 0.82rem !important;
+    }
+    div[data-testid="metric-container"] [data-testid="metric-value"] {
+        color: #1e3a8a !important;
+        font-size: 1.6rem !important;
+        font-weight: 700 !important;
     }
 
-    /* Buttons */
+    /* ── Main buttons ── */
     .stButton > button {
-        background: linear-gradient(90deg,#1e40af,#0891b2);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
+        background: linear-gradient(90deg,#1e40af,#0891b2) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        padding: 0.45rem 1.2rem !important;
+        transition: opacity 0.15s !important;
     }
-    .stButton > button:hover { opacity: 0.88; }
+    .stButton > button:hover { opacity: 0.85 !important; }
 
-    /* Headers */
-    h1 { color: #1e40af; }
-    h2 { color: #1e3a8a; }
-    h3 { color: #1e40af; }
+    /* ── Page headers ── */
+    h1 { color: #1e40af !important; font-weight: 800 !important; }
+    h2 { color: #1e3a8a !important; font-weight: 700 !important; }
+    h3 { color: #1e40af !important; font-weight: 700 !important; }
 
-    /* Alert banners */
-    .alert-danger  { background:#fee2e2; border-left:4px solid #dc2626; padding:10px 14px; border-radius:6px; }
-    .alert-warning { background:#fef3c7; border-left:4px solid #d97706; padding:10px 14px; border-radius:6px; }
-    .alert-success { background:#d1fae5; border-left:4px solid #059669; padding:10px 14px; border-radius:6px; }
-    .alert-info    { background:#e0f2fe; border-left:4px solid #0891b2; padding:10px 14px; border-radius:6px; }
+    /* ── Tabs ── */
+    .stTabs [data-baseweb="tab-list"] { gap: 6px; }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px 8px 0 0;
+        padding: 8px 18px;
+        font-weight: 600;
+        font-size: 0.88rem;
+    }
 
-    /* Stage badges */
-    .badge-prod    { background:#059669; color:white; padding:2px 10px; border-radius:12px; font-size:12px; font-weight:600; }
-    .badge-staging { background:#d97706; color:white; padding:2px 10px; border-radius:12px; font-size:12px; font-weight:600; }
-    .badge-dev     { background:#6b7280; color:white; padding:2px 10px; border-radius:12px; font-size:12px; font-weight:600; }
-    .badge-arch    { background:#dc2626; color:white; padding:2px 10px; border-radius:12px; font-size:12px; font-weight:600; }
+    /* ── Alert banners ── */
+    .alert-danger  { background:#fee2e2; border-left:5px solid #dc2626; padding:12px 16px; border-radius:8px; margin:6px 0; }
+    .alert-warning { background:#fef3c7; border-left:5px solid #d97706; padding:12px 16px; border-radius:8px; margin:6px 0; }
+    .alert-success { background:#d1fae5; border-left:5px solid #059669; padding:12px 16px; border-radius:8px; margin:6px 0; }
+    .alert-info    { background:#e0f2fe; border-left:5px solid #0891b2; padding:12px 16px; border-radius:8px; margin:6px 0; }
 
-    /* Divider */
+    /* ── Explanation / callout boxes ── */
+    .explain-box {
+        background: linear-gradient(135deg,#f0f9ff,#e0f2fe);
+        border: 1px solid #bae6fd;
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin: 10px 0 16px;
+        font-size: 0.9rem;
+        color: #0c4a6e;
+        line-height: 1.6;
+    }
+    .explain-box b { color: #0369a1; }
+
+    /* ── Stage badges ── */
+    .badge-prod    { background:#059669; color:#fff; padding:3px 12px; border-radius:12px; font-size:0.75rem; font-weight:700; }
+    .badge-staging { background:#d97706; color:#fff; padding:3px 12px; border-radius:12px; font-size:0.75rem; font-weight:700; }
+    .badge-dev     { background:#6b7280; color:#fff; padding:3px 12px; border-radius:12px; font-size:0.75rem; font-weight:700; }
+    .badge-arch    { background:#dc2626; color:#fff; padding:3px 12px; border-radius:12px; font-size:0.75rem; font-weight:700; }
+
+    /* ── Dividers ── */
     hr { border: none; border-top: 1px solid #e2e8f0; margin: 20px 0; }
 
-    /* Code blocks */
-    code { background: #1e293b; color:#38bdf8; padding: 2px 6px; border-radius: 4px; }
-
-    /* Tab styling */
-    .stTabs [data-baseweb="tab-list"] { gap: 8px; }
-    .stTabs [data-baseweb="tab"] { border-radius: 6px 6px 0 0; padding: 8px 20px; font-weight: 600; }
-
-    /* Scrollable table */
-    .scrollable-table { overflow-x: auto; border-radius: 8px; }
+    /* ── Code ── */
+    code { background:#1e293b; color:#38bdf8; padding:2px 7px; border-radius:5px; font-size:0.85em; }
 </style>
 """

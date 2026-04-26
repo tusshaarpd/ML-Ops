@@ -15,8 +15,56 @@ from utils.visualizations import metric_trend_chart, gauge_chart, sparkline, PAL
 st.set_page_config(page_title="Executive Dashboard", page_icon="📊", layout="wide")
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
+# ── Sidebar explanation ────────────────────────────────────────────────────────
+with st.sidebar:
+    st.markdown(
+        """
+        <div style='text-align:center; padding:10px 0 14px;'>
+            <div style='font-size:2rem;'>📊</div>
+            <div style='color:#93c5fd; font-weight:700; font-size:1rem;'>Executive Dashboard</div>
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.82rem; color:#cbd5e1; line-height:1.8;'>
+        <b style='color:#bfdbfe;'>📌 What you see here</b><br>
+        • Live KPI cards for all production models<br>
+        • Active alerts & drift incidents<br>
+        • 30-day accuracy / F1 trend chart<br>
+        • Use-case coverage matrix<br>
+        • Recent audit log events
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.78rem; color:#94a3b8; line-height:1.6;'>
+        <b style='color:#bfdbfe;'>💡 Key metrics explained</b><br>
+        <b style='color:#e2e8f0;'>Avg Accuracy</b> — mean accuracy of all Production-stage models<br>
+        <b style='color:#e2e8f0;'>Drift Incidents</b> — features with PSI &gt; 0.20 this week<br>
+        <b style='color:#e2e8f0;'>Retrain Pending</b> — models awaiting retraining approval
+        </div>
+        """, unsafe_allow_html=True,
+    )
+
 st.title("📊 Executive Dashboard")
-st.caption("Real-time platform health, model KPIs, and operational alerts.")
+st.caption("Real-time platform health, model KPIs, and operational alerts — refreshes every 30 seconds.")
+
+st.markdown(
+    """
+    <div class='explain-box'>
+    <b>📖 About this page:</b> The Executive Dashboard gives a bird's-eye view of the entire
+    MLOps platform. It aggregates key performance indicators from all production models,
+    highlights active operational alerts, and shows a 30-day performance trend.
+    Use this page to quickly spot degrading models, drift events, or pending actions
+    without diving into individual use-case pages.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 st.divider()
 
 # ── Load Data ─────────────────────────────────────────────────────────────────

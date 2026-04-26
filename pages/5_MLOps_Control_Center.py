@@ -15,8 +15,58 @@ from utils.logging_utils import generate_pipeline_logs, read_log_tail
 st.set_page_config(page_title="MLOps Control Center", page_icon="🎛️", layout="wide")
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
+with st.sidebar:
+    st.markdown(
+        """
+        <div style='text-align:center; padding:8px 0 12px;'>
+            <div style='font-size:1.8rem;'>🎛️</div>
+            <div style='color:#93c5fd; font-weight:700; font-size:0.95rem;'>Control Center</div>
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.8rem; color:#cbd5e1; line-height:1.8;'>
+        <b style='color:#bfdbfe;'>📌 What's on this page</b><br>
+        🔄 <b style='color:#e2e8f0;'>Pipeline Flow</b> — Sankey diagram showing data through all 9 stages<br>
+        🃏 <b style='color:#e2e8f0;'>Stage Cards</b> — Per-stage health, status &amp; last-run time<br>
+        📅 <b style='color:#e2e8f0;'>Timeline</b> — Execution duration per stage<br>
+        📜 <b style='color:#e2e8f0;'>Log Viewer</b> — Simulated pipeline logs<br>
+        🩺 <b style='color:#e2e8f0;'>SLA Board</b> — Compliance vs thresholds<br>
+        ▶️ <b style='color:#e2e8f0;'>Simulate Run</b> — Watch the pipeline execute live
+        </div>
+        """, unsafe_allow_html=True,
+    )
+    st.divider()
+    st.markdown(
+        """
+        <div style='font-size:0.78rem; color:#94a3b8; line-height:1.6;'>
+        <b style='color:#bfdbfe;'>🔑 Status Legend</b><br>
+        <span style='color:#059669;'>■</span> <b style='color:#e2e8f0;'>Pass</b> — Stage healthy<br>
+        <span style='color:#d97706;'>■</span> <b style='color:#e2e8f0;'>Warn</b> — Needs attention<br>
+        <span style='color:#dc2626;'>■</span> <b style='color:#e2e8f0;'>Fail</b> — Action required<br>
+        <span style='color:#6b7280;'>■</span> <b style='color:#e2e8f0;'>Pending</b> — Not yet run
+        </div>
+        """, unsafe_allow_html=True,
+    )
+
 st.title("🎛️ MLOps Control Center")
 st.caption("End-to-end ML pipeline visibility: stages, health, logs, and execution history.")
+st.markdown(
+    """
+    <div class='explain-box'>
+    <b>📖 About this page:</b> The MLOps Control Center provides a unified view of your
+    entire ML pipeline — from raw data ingestion through to production monitoring and
+    retraining. Each of the <b>9 pipeline stages</b> shows its current health score,
+    last execution timestamp, pass/fail status, and duration.
+    The <b>Sankey flow diagram</b> shows how data flows between stages.
+    Click <b>▶️ Run Full Pipeline</b> at the bottom to watch a simulated end-to-end
+    execution with real-time log output.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 st.divider()
 
 # ── Pipeline Stage Definitions ────────────────────────────────────────────────
