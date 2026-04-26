@@ -170,21 +170,24 @@ with tabs[2]:
     c4.metric("Churn Rate", f"{churn_rate:.1%}")
 
     t1, t2, t3 = st.tabs(["📊 Distributions", "🔍 Segment Analysis", "📋 Data Preview"])
+    # Add a human-readable label column once; used by all charts in this tab group
+    df_churn_plot = df.copy()
+    df_churn_plot["status"] = df_churn_plot["churn"].map({0: "Retained", 1: "Churned"})
     with t1:
         col_a, col_b = st.columns(2)
         with col_a:
-            fig = px.histogram(df, x="tenure_months", color=df["churn"].map({0:"Retained",1:"Churned"}),
+            fig = px.histogram(df_churn_plot, x="tenure_months", color="status",
                                barmode="overlay",
-                               color_discrete_sequence=["#059669","#DC2626"],
+                               color_discrete_map={"Retained": "#059669", "Churned": "#DC2626"},
                                title="Tenure Distribution by Churn Status",
-                               labels={"x": "Tenure (months)", "color": "Status"})
+                               labels={"tenure_months": "Tenure (months)", "status": "Status"})
             fig.update_layout(height=330, paper_bgcolor="rgba(0,0,0,0)",
                               plot_bgcolor="rgba(0,0,0,0)")
             st.plotly_chart(fig, use_container_width=True)
         with col_b:
-            fig = px.box(df, x="plan_type", y="monthly_bill",
-                         color=df["churn"].map({0:"Retained",1:"Churned"}),
-                         color_discrete_sequence=["#1E40AF","#DC2626"],
+            fig = px.box(df_churn_plot, x="plan_type", y="monthly_bill",
+                         color="status",
+                         color_discrete_map={"Retained": "#1E40AF", "Churned": "#DC2626"},
                          title="Monthly Bill by Plan & Churn Status")
             fig.update_layout(height=330, paper_bgcolor="rgba(0,0,0,0)",
                               plot_bgcolor="rgba(0,0,0,0)")
@@ -213,12 +216,14 @@ with tabs[2]:
         plan_churn["avg_bill"]   = plan_churn["avg_bill"].map("${:.0f}".format)
         st.dataframe(plan_churn, use_container_width=True, hide_index=True)
 
+        _scatter = df.sample(500, random_state=42).copy()
+        _scatter["status"] = _scatter["churn"].map({0: "Retained", 1: "Churned"})
         fig = px.scatter(
-            df.sample(500, random_state=42),
+            _scatter,
             x="usage_drop_pct", y="monthly_bill",
-            color=df.sample(500, random_state=42)["churn"].map({0:"Retained",1:"Churned"}),
+            color="status",
             size="num_complaints",
-            color_discrete_sequence=["#1E40AF","#DC2626"],
+            color_discrete_map={"Retained": "#1E40AF", "Churned": "#DC2626"},
             opacity=0.65, title="Usage Drop vs Monthly Bill (size = complaints)",
         )
         fig.update_layout(height=380, paper_bgcolor="rgba(0,0,0,0)",
@@ -250,14 +255,16 @@ with tabs[3]:
     c4.metric("Fraud Rate", f"{fraud_rate:.2%}")
 
     t1, t2, t3 = st.tabs(["📊 Distributions", "⚠️ Risk Factors", "📋 High-Risk Transactions"])
+    df_fraud_plot = df.copy()
+    df_fraud_plot["status"] = df_fraud_plot["is_fraud"].map({0: "Legit", 1: "Fraud"})
     with t1:
         col_a, col_b = st.columns(2)
         with col_a:
-            fig = px.histogram(df, x="amount", color=df["is_fraud"].map({0:"Legit",1:"Fraud"}),
+            fig = px.histogram(df_fraud_plot, x="amount", color="status",
                                nbins=50, barmode="overlay",
-                               color_discrete_sequence=["#1E40AF","#DC2626"],
+                               color_discrete_map={"Legit": "#1E40AF", "Fraud": "#DC2626"},
                                title="Transaction Amount Distribution",
-                               labels={"color":"Status"})
+                               labels={"status": "Status"})
             fig.update_layout(height=330, paper_bgcolor="rgba(0,0,0,0)",
                               plot_bgcolor="rgba(0,0,0,0)")
             st.plotly_chart(fig, use_container_width=True)
@@ -403,9 +410,11 @@ with tabs[5]:
                               plot_bgcolor="rgba(0,0,0,0)")
             st.plotly_chart(fig, use_container_width=True)
         with col_b:
-            fig = px.box(df, x="salary_band", y="satisfaction",
-                         color=df["attrition"].map({0:"Stayed",1:"Left"}),
-                         color_discrete_sequence=["#1E40AF","#DC2626"],
+            df_hr_plot = df.copy()
+            df_hr_plot["status"] = df_hr_plot["attrition"].map({0: "Stayed", 1: "Left"})
+            fig = px.box(df_hr_plot, x="salary_band", y="satisfaction",
+                         color="status",
+                         color_discrete_map={"Stayed": "#1E40AF", "Left": "#DC2626"},
                          title="Satisfaction by Salary Band & Attrition")
             fig.update_layout(height=350, paper_bgcolor="rgba(0,0,0,0)",
                               plot_bgcolor="rgba(0,0,0,0)")
