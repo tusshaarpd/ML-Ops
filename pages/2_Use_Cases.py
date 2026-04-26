@@ -218,13 +218,19 @@ with tabs[2]:
 
         _scatter = df.sample(500, random_state=42).copy()
         _scatter["status"] = _scatter["churn"].map({0: "Retained", 1: "Churned"})
+        # Fill NaN in columns used for axes and size; px.scatter rejects NaN in marker.size
+        _scatter["num_complaints"] = _scatter["num_complaints"].fillna(0).clip(lower=0).astype(int)
+        _scatter["usage_drop_pct"] = _scatter["usage_drop_pct"].fillna(_scatter["usage_drop_pct"].median())
+        _scatter["monthly_bill"]   = _scatter["monthly_bill"].fillna(_scatter["monthly_bill"].median())
+        _scatter = _scatter.dropna(subset=["usage_drop_pct", "monthly_bill", "num_complaints", "status"])
         fig = px.scatter(
             _scatter,
             x="usage_drop_pct", y="monthly_bill",
             color="status",
             size="num_complaints",
+            size_max=20,
             color_discrete_map={"Retained": "#1E40AF", "Churned": "#DC2626"},
-            opacity=0.65, title="Usage Drop vs Monthly Bill (size = complaints)",
+            opacity=0.65, title="Usage Drop vs Monthly Bill (bubble size = complaints)",
         )
         fig.update_layout(height=380, paper_bgcolor="rgba(0,0,0,0)",
                           plot_bgcolor="rgba(0,0,0,0)")
